@@ -18,7 +18,7 @@
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "//var responseJSON\nconsole.log(responseBody)\n\ntry{\n    tests[\"Product Name contains PostMan Product\"] = responseBody.has(\"PostMan Product\");\n    tests[\"Status code is 200-Successful\"] = responseCode.code === 200;\n    var response = JSON.parse(responseBody);\n    postman.setEnvironmentVariable(\"ProductID\", response.Product);\n    tests[\"ReleaseName\"] = response.hasOwnProperty(\"CreatedReleaseName\");\n    tests[\"Response message\"] = response.ResponseMessage == \"Product and first release is created successfully\"\n    postman.setEnvironmentVariable(\"ReleaseID\", response.Release);\n    postman.setEnvironmentVariable(\"ProductName\",response.CreatedProductName);\n    HYRHYTHYUYTUU\n    }\ncatch(e){\n    \n    \n}\n"
+								"exec": "//var responseJSON\nconsole.log(responseBody)\n\ntry{\n    tests[\"Product Name contains PostMan Product\"] = responseBody.has(\"PostMan Product\");\n    tests[\"Status code is 200-Successful\"] = responseCode.code === 200;\n    var response = JSON.parse(responseBody);\n    postman.setEnvironmentVariable(\"ProductID\", response.Product);\n    tests[\"ReleaseName\"] = response.hasOwnProperty(\"CreatedReleaseName\");\n  \n}\n"
 							}
 						}
 					],
