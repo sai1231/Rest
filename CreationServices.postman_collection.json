@@ -1,0 +1,319 @@
+{
+	"variables": [],
+	"info": {
+		"name": "CreationServices",
+		"_postman_id": "abf25a50-4436-396d-89e0-aa91893a0ed7",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01_CreateProduct",
+			"description": "",
+			"item": [
+				{
+					"name": "CreateProductWithMandatoryValues",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "//var responseJSON\nconsole.log(responseBody)\n\ntry{\n    tests[\"Product Name contains PostMan Product\"] = responseBody.has(\"PostMan Product\");\n    tests[\"Status code is 200-Successful\"] = responseCode.code === 200;\n    var response = JSON.parse(responseBody);\n    postman.setEnvironmentVariable(\"ProductID\", response.Product);\n    tests[\"ReleaseName\"] = response.hasOwnProperty(\"CreatedReleaseName\");\n    tests[\"Response message\"] = response.ResponseMessage == \"Product and first release is created successfully\"\n    postman.setEnvironmentVariable(\"ReleaseID\", response.Release);\n    postman.setEnvironmentVariable(\"ProductName\",response.CreatedProductName);\n    \n    }\ncatch(e){\n    \n    \n}\n"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "suriradmin",
+								"password": "install",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{URL}}PRRestService/PegaProject/api/Product",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic c3VyaXJhZG1pbjppbnN0YWxs",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Name\":\"PostMan Product{{$timestamp}}\"}"
+						},
+						"description": "CreateProduct"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateProductWithNoName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var responseJSON;\n\ntry{\n    tests[\"Product Name is mandatory \"] = responseBody.has(\".pyLabel: Name may not be blank\");\n    tests[\"Status code is 400\"] = responseCode.code === 400;\n    \n    var response = JSON.parse(responseBody);\n   // postman.setEnvironmentVariable(\"PRD\", response.StatusCode);\n    tests[\"Error message\"]=response.ErrorMsg==\".pyLabel: Name may not be blank\";\n}\ncatch(e){}\n\n"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "suriradmin",
+								"password": "install",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{URL}}PRRestService/PegaProject/api/Product",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic c3VyaXJhZG1pbjppbnN0YWxs",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Name\":\"\"}"
+						},
+						"description": "CreateProduct"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateProductWithRLSName&Version",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "console.log(responseBody)\n\ntry{\n    tests[\"Product Name contains PostMan Product\"] = responseBody.has(\"PostMan Product\");\n    tests[\"Status code is 200-Successful\"] = responseCode.code === 200;\n    var response = JSON.parse(responseBody);\n    //postman.setEnvironmentVariable(\"ProductID\", response.Product);\n    tests[\"ReleaseName\"] = response.hasOwnProperty(\"CreatedReleaseName\");\n    tests[\"Response message\"] = response.ResponseMessage == \"Product and first release is created successfully\"\n    //postman.setEnvironmentVariable(\"ReleaseID\", response.Release);\n    \n    }\ncatch(e){\n    \n}"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "suriradmin",
+								"password": "install",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{URL}}PRRestService/PegaProject/api/Product",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic c3VyaXJhZG1pbjppbnN0YWxs",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Name\":\"PostMan Product{{$timestamp}}\",\"Description\":\"PostMan Product Desc\",\"ReleaseName\":\"PostMan Release{{$timestamp}}\",\"ReleaseVersion\":\"01.01.01\";\"CreatedBy\":\"\"}\n\n"
+						},
+						"description": "CreateProductWithRLSName"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02_CreateRelease",
+			"description": "",
+			"item": [
+				{
+					"name": "CreateReleaseWithPrdID&Version",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "console.log(responseBody)\n\ntry{\n//    tests[\"Product Name contains PostMan Product\"] = responseBody.has(\"PostMan Product\");\n    tests[\"Status code is 200-Successful\"] = responseCode.code === 200;\n    var response = JSON.parse(responseBody);\n    tests[\"ReleaseName\"] = response.hasOwnProperty(\"CreatedReleaseName\");\n    tests[\"Response message\"] = response.CreatedReleaseName ==environment.ProductName +\" \"+\"01.01.01\";\n    console.log(environment.ProductID +\" \"+\"01.01.01\");\n    }\ncatch(e){\n    \n    \n}\n"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "suriradmin",
+								"password": "install",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{URL}}PRRestService/PegaProject/api/Release",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic c3VyaXJhZG1pbjppbnN0YWxs",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"Name\": \"\",\r\n   \"Product\": \"{{ProductID}}\",\r\n   \"ReleaseVersion\": \"01.01.01\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "CreateReleaseWithOutPrdID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "console.log(responseBody)\n\ntry{\n//    tests[\"Product Name contains PostMan Product\"] = responseBody.has(\"PostMan Product\");\n    tests[\"Status code is 400-Bad Request\"] = responseCode.code === 400;\n    var response = JSON.parse(responseBody);\n    tests[\"ErrorMsg\"] = response.hasOwnProperty(\"ErrorMsg\");\n    //tests[\"Response message\"] = response.CreatedReleaseName ==environment.ProductName +\" \"+\"01.01.01\";\n    tests[\"StatusCode\"] = response.hasOwnProperty(\"StatusCode\");\n    tests[\"Error message\"]=response.ErrorMsg==\"Please enter a value for product\";\n    \n    }\ncatch(e){\n    \n    \n}\n"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "suriradmin",
+								"password": "install",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{URL}}PRRestService/PegaProject/api/Release",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic c3VyaXJhZG1pbjppbnN0YWxs",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"Name\": \"PostMan Release\",\r\n   \"Product\": \"\",\r\n   \"ReleaseVersion\": \"01.01.01\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateFeature",
+			"description": "",
+			"item": [
+				{
+					"name": "CreateFeature",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Feature ID \"] = responseHeaders.hasOwnProperty(\"featureid\")\n\n\npostman.setGlobalVariable(\"FeatureID\", responseHeaders.featureid);"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "suriradmin",
+								"password": "install",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{URL}}PRRestService/PegaProject/api/FeatureCRUD",
+						"method": "POST",
+						"header": [
+							{
+								"key": "action",
+								"value": "Create",
+								"description": ""
+							},
+							{
+								"key": "featureid",
+								"value": "",
+								"description": ""
+							},
+							{
+								"key": "featurename",
+								"value": "test feature1",
+								"description": ""
+							},
+							{
+								"key": "featuredescription",
+								"value": "test",
+								"description": ""
+							},
+							{
+								"key": "productid",
+								"value": "PRD-1",
+								"description": ""
+							},
+							{
+								"key": "parentfeatureid",
+								"value": "",
+								"description": ""
+							},
+							{
+								"key": "releaseid",
+								"value": "RLS-1",
+								"description": ""
+							},
+							{
+								"key": "applicationname",
+								"value": "",
+								"description": ""
+							},
+							{
+								"key": "applicationversion",
+								"value": "",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic c3VyaXJhZG1pbjppbnN0YWxs",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "    "
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
