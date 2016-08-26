@@ -148,7 +148,7 @@
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
-								"exec": "console.log(responseBody)\n\ntry{\n//    tests[\"Product Name contains PostMan Product\"] = responseBody.has(\"PostMan Product\");\n    tests[\"Status code is 200-Successful\"] = responseCode.code === 200;\n    var response = JSON.parse(responseBody);\n    tests[\"ReleaseName\"] = response.hasOwnProperty(\"CreatedReleaseName\");\n    tests[\"Response message\"] = response.CreatedReleaseName ==environment.ProductName +\" \"+\"01.01.01\";\n    console.log(environment.ProductID +\" \"+\"01.01.01\");\n    }\ncatch(e){\n    \n    \n}\n"
+								"exec": "console.log(responseBody)\n\ntry{\n//    tests[\"Product Name contains PostMan Product\"] = responseBody.has(\"PostMan Product\");\n    tests[\"Status code is 200-Successful\"] = responseCode.code === 200;\n    var response = JSON.parse(responseBody);\n    tests[\"ReleaseName\"] = response.hasOwnProperty(\"CreatedReleaseName\");\n    tests[\"Response message\"] = response.CreatedReleaseName ==environment.ProductName +\" \"+\"01.01.01\";\n    console.log(environment.ProductID +\" \"+\"01.01.01\");\n    }asdfaasdfasdfasdfasd\ncatch(e){\n    \n    \n}\n"
 							}
 						}
 					],
